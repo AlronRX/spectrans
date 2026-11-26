@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}СПЕЦТРАНС{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+
+            <a href="{% url 'core:home' %}" class="logo">
+                СПЕЦ<span>ТРАНС</span>
+            </a>
+
+            <nav class="navigation">
+                <a href="{% url 'core:home' %}">Главная</a>
+                <a href="{% url 'core:home' %}#services">Услуги</a>
+                <a href="{% url 'core:home' %}#about">О компании</a>
+                <a href="{% url 'core:home' %}#contacts">Контакты</a>
+            </nav>
+
+            <a href="tel:+79142210353" class="button">
+                Позвонить
+            </a>
+
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 ООО «СПЕЦТРАНС»</p>
+            <p>Республика Саха (Якутия), Якутск</p>
+        </div>
+    </footer>
+
+</body>
+</html>
