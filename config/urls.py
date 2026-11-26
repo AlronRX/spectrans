@@ -22,5 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("core.urls")),
     path('order/', order_views.order_form_view, name='order_form'),
-
+    path("equipment/", include("equipment.urls")),
 ]
