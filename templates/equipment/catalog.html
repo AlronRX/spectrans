@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Каталог спецтехники — СПЕЦТРАНС
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+
+        <span class="section-label">НАШ АВТОПАРК</span>
+
+        <h1>Каталог спецтехники</h1>
+
+        <p>Выберите технику для выполнения ваших задач.</p>
+
+        <div class="services-grid">
+
+            <article class="service-card">
+                <img src="{% static 'images/hero/shacman.png' %}"
+                     alt="Самосвал SHACMAN" width="100%">
+
+                <h3>SHACMAN X3000</h3>
+                <p>Самосвал</p>
+            </article>
+
+            <article class="service-card">
+                <img src="{% static 'images/hero/zoomlion.png' %}"
+                     alt="Бульдозер ZOOMLION" width="100%">
+
+                <h3>ZOOMLION ZD220-3</h3>
+                <p>Бульдозер</p>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
