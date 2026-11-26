@@ -15,6 +15,10 @@ class OrderForm(forms.ModelForm):
             'location': forms.TextInput(attrs={'placeholder': 'Например: г. Якутск, ул. Ленина 1'}),
             'comment': forms.Textarea(attrs={'rows': 3}),
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Меняем пустую заглушку в селекте
+        self.fields['service'].empty_label = "Выберите услугу"    
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')

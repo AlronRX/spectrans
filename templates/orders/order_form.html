@@ -1,37 +1,212 @@
 {% extends 'base.html' %}
 
-{% block title %}Заявка на аренду техники | СПЕЦТРАНС{% endblock %}
+{% block title %}Оставить заявку | СПЕЦТРАНС{% endblock %}
 
 {% block content %}
-<div class="container" style="max-width: 800px; margin: 50px auto; padding: 20px;">
-    <h2 style="text-align: center; margin-bottom: 30px;">Оставить заявку</h2>
+<style>
+    /* Общий контейнер с плавным появлением */
+    .order-container {
+        max-width: 700px;
+        margin: 60px auto;
+        padding: 40px;
+        background: rgba(30, 30, 30, 0.95); /* Тёмный фон */
+        border: 1px solid #333;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        animation: fadeInSlideUp 0.8s ease-out forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    /* Анимация появления */
+    @keyframes fadeInSlideUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .order-title {
+        color: #fff;
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .order-title span {
+        color: #ffc107; /* Желтый акцент */
+    }
+
+    /* Стили для полей */
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .form-group label {
+        display: block;
+        color: #ccc;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        background-color: #2a2a2a;
+        border: 2px solid #444;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 1rem;
+        font-family: inherit;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    /* Эффект при наведении и фокусе на поле */
+    .form-group input:hover, 
+    .form-group select:hover, 
+    .form-group textarea:hover {
+        border-color: #666;
+    }
+
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);
+        outline: none;
+        background-color: #333;
+    }
+
+    /* Меняем цвет текста в поле, когда в него вводят данные */
+    .form-group input:focus + label,
+    .form-group select:focus + label,
+    .form-group textarea:focus + label {
+        color: #ffc107;
+    }
+
+    /* Стили для чекбокса (согласие) */
+    .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 3px;
+        accent-color: #ffc107; /* Цвет галочки */
+        cursor: pointer;
+    }
+
+    .checkbox-group label {
+        margin-bottom: 0;
+        font-size: 0.9rem;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    /* Красивая кнопка с эффектами */
+    .btn-submit {
+        display: block;
+        width: 100%;
+        padding: 18px;
+        margin-top: 30px;
+        background-color: #ffc107;
+        color: #111;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-submit:hover {
+        background-color: #e0a800;
+        transform: translateY(-3px); /* Кнопка приподнимается */
+        box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    }
+
+    .btn-submit:active {
+        transform: translateY(1px); /* Эффект нажатия */
+        box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    }
+
+    /* Стили для ошибок валидации */
+    .errorlist {
+        color: #ff5252;
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+        font-size: 0.85rem;
+    }
+        /* Красим выпадающий список при клике */
+    .form-group select option {
+        background-color: #2a2a2a;
+        color: #fff;
+        padding: 10px;
+    }
+        /* Убираем белый фон автозаполнения браузера */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        -webkit-box-shadow: 0 0 0 30px #2a2a2a inset !important;
+        -webkit-text-fill-color: white !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+</style>
+
+<div class="order-container">
+    <h2 class="order-title">Оставить <span>заявку</span></h2>
     
-    <form method="post" style="background: #f9f9f9; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        {% csrf_token %} <!-- Обязательно для безопасности Django -->
+    <form method="post">
+        {% csrf_token %}
         
         {% for field in form %}
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label for="{{ field.id_for_label }}" style="display: block; font-weight: bold; margin-bottom: 5px;">
-                    {{ field.label }}
-                    {% if field.field.required %}<span style="color: red;">*</span>{% endif %}
-                </label>
-                
-                <!-- Выводим само поле. Django сам подставит нужный тег (input/select/textarea) -->
-                {{ field }}
-                
-                {% if field.errors %}
-                    <div style="color: red; font-size: 14px; margin-top: 5px;">
-                        {{ field.errors }}
-                    </div>
-                {% endif %}
-            </div>
+            {% if field.name == 'consent' %}
+                <!-- Особый стиль для чекбокса -->
+                <div class="checkbox-group">
+                    {{ field }}
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }} {% if field.field.required %}<span style="color: red;">*</span>{% endif %}
+                    </label>
+                </div>
+                {{ field.errors }}
+            {% else %}
+                <!-- Обычные поля -->
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }} {% if field.field.required %}<span style="color: #ffc107;">*</span>{% endif %}
+                    </label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endif %}
         {% endfor %}
 
-        <div style="text-align: center; margin-top: 30px;">
-            <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 15px 40px; font-size: 18px; border-radius: 5px; cursor: pointer; transition: 0.3s;">
-                Отправить заявку
-            </button>
-        </div>
+        <button type="submit" class="btn-submit">
+            Отправить заявку
+        </button>
     </form>
 </div>
 {% endblock %}
