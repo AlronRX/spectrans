@@ -96,12 +96,19 @@ a {
     display: flex;
     align-items: center;
     color: var(--white);
-    background: linear-gradient(
-        120deg,
-        #111318,
-        #303741
-    );
     padding: 80px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(17, 19, 24, 0.95),
+            rgba(17, 19, 24, 0.25)
+        ),
+        url("../images/hero/shacman.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .hero .container {
