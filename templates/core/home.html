@@ -7,7 +7,13 @@
 {% block content %}
 
 <section class="hero">
-    <div class="container">
+
+    <div class="hero-slides">
+        <div class="hero-slide slide-shacman active"></div>
+        <div class="hero-slide slide-zoomlion"></div>
+    </div>
+
+    <div class="container hero-content">
 
         <span class="eyebrow">
             АРЕНДА СПЕЦТЕХНИКИ • ЯКУТИЯ
@@ -28,6 +34,27 @@
         </a>
 
     </div>
+
+    <div class="slider-controls">
+
+        <button type="button" id="prev-slide"
+                aria-label="Предыдущий слайд">
+            &#10094;
+        </button>
+
+        <span id="slide-counter">01 / 02</span>
+
+        <button type="button" id="next-slide"
+                aria-label="Следующий слайд">
+            &#10095;
+        </button>
+
+        <button type="button" id="pause-slider">
+            Пауза
+        </button>
+
+    </div>
+
 </section>
 
 <section id="services" class="section">
